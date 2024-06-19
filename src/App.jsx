@@ -11,7 +11,7 @@ function App() {
   const getInfoFromServer = () => {
     fetch("https://unknown-blog-18ca4-default-rtdb.europe-west1.firebasedatabase.app/postes/.json")
     .then(response => response.json())
-    .then(data => setPostes(data))
+    .then(data => setPostes(Object.values(data)))
     .catch(err => console.error(err));
   }
 
@@ -26,15 +26,33 @@ function App() {
 
     return `${hours}:${minutes} ${month} ${day} ${year}`;
   }
-  
+
   const postHandle = (event) => {
     setPost({...post, [event.target.name]: event.target.value, timeOfPost: CurrentTime()});
   }
+
   const sendPostHandle = () => {
     setPostes([...postes, post]);
+
+    fetch("https://unknown-blog-18ca4-default-rtdb.europe-west1.firebasedatabase.app/postes/.json",
+      {
+        method: 'POST',
+        body: JSON.stringify(post)
+      }
+    )
+    .then(response => getInfoFromServer())
+    .catch(err => console.error(err));
+
     setPost({postTittle: "", postText: "", timeOfPost: ""});
   }
 
+  const parseTimeOfPost = (timeOfPost) => {
+    const [time, month, day, year] = timeOfPost.split(' ');
+    const [hours, minutes] = time.split(':');
+    return new Date(`${month} ${day}, ${year} ${hours}:${minutes}`);
+  };
+
+  const sortedPostes = [...postes].sort((a, b) => parseTimeOfPost(b.timeOfPost) - parseTimeOfPost(a.timeOfPost));
 
   return (
     <>
@@ -45,7 +63,7 @@ function App() {
       </div>
 
       <div>
-        {postes.map((post, index) =>
+        {sortedPostes.map((post, index) =>
           <div key={index}>
             <h1>{post.postTittle}</h1>
             <p>{post.postText}</p>
