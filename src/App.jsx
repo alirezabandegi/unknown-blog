@@ -4,6 +4,17 @@ function App() {
   const [post, setPost] = useState({postTittle: "", postText: ""});
   const [postes, setPostes] = useState([]);
 
+  useEffect(() => {
+    getInfoFromServer();
+  }, []);
+
+  const getInfoFromServer = () => {
+    fetch("https://unknown-blog-18ca4-default-rtdb.europe-west1.firebasedatabase.app/postes/.json")
+    .then(response => response.json())
+    .then(data => setPostes(data))
+    .catch(err => console.error(err));
+  }
+
   function CurrentTime() {
     const now = new Date();
 
