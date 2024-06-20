@@ -61,23 +61,27 @@ function App() {
   const sortedPostes = [...postes].sort((a, b) => parseTimeOfPost(b.timeOfPost) - parseTimeOfPost(a.timeOfPost));
 
   return (
-    <main>
-      <section className={style.post}>
-        <input type="text" name="postTittle" placeholder="Tittle" value={post.postTittle} onChange={postHandle}/>
-        <textarea name="postText" rows="4" cols="50" placeholder="Write post text here..." value={post.postText} onChange={postHandle}></textarea>
-        <button onClick={sendPostHandle}>Post</button>
-      </section>
+    <>
+      <main>
+        <section className={style.post}>
+          <input type="text" name="postTittle" placeholder="Tittle" value={post.postTittle} onChange={postHandle}/>
+          <textarea name="postText" rows="4" cols="50" placeholder="Write post text here..." value={post.postText} onChange={postHandle}></textarea>
+          <button onClick={sendPostHandle}>Post</button>
+        </section>
 
-      <section className={style.displayPosts}>
-        {sortedPostes.map((post, index) =>
-          <div key={index}>
-            <h1>{post.postTittle}</h1>
-            <p>{post.postText}</p>
-            <span>{post.timeOfPost}</span>
-          </div>
-        )}
-      </section>
-    </main>
+        <section className={style.displayPosts}>
+          {sortedPostes.map((post, index) =>
+            <div key={index}>
+              <h1>{post.postTittle}</h1>
+              <p>{post.postText}</p>
+              <span>{post.timeOfPost}</span>
+            </div>
+          )}
+        </section>
+      </main>
+
+      <footer>&copy;2024 Unknown Blog</footer>
+    </>
   )
 }
 
