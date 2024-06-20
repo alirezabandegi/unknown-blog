@@ -52,4 +52,11 @@ main{
 footer{
     color: white;
     margin-top: 15px;
+    text-align: center;
+
+    span{
+        display: block;
+        margin: 5px;
+        cursor: pointer;
+    }
 }
