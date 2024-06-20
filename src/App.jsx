@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from "react";
+import style from "./app.module.css";
 
 function App() {
-  const [post, setPost] = useState({postTittle: "", postText: ""});
+  const [post, setPost] = useState({postTittle: "", postText: "", timeOfPost: ""});
   const [postes, setPostes] = useState([]);
 
   useEffect(() => {
@@ -32,18 +33,23 @@ function App() {
   }
 
   const sendPostHandle = () => {
-    setPostes([...postes, post]);
-
-    fetch("https://unknown-blog-18ca4-default-rtdb.europe-west1.firebasedatabase.app/postes/.json",
-      {
-        method: 'POST',
-        body: JSON.stringify(post)
-      }
-    )
-    .then(response => getInfoFromServer())
-    .catch(err => console.error(err));
-
-    setPost({postTittle: "", postText: "", timeOfPost: ""});
+    if(!post.postTittle == "" && !post.postText == ""){
+      setPostes([...postes, post]);
+  
+      fetch("https://unknown-blog-18ca4-default-rtdb.europe-west1.firebasedatabase.app/postes/.json",
+        {
+          method: 'POST',
+          body: JSON.stringify(post)
+        }
+      )
+      .then(response => getInfoFromServer())
+      .catch(err => console.error(err));
+  
+      setPost({postTittle: "", postText: "", timeOfPost: ""});
+    }
+    else{
+      // code
+    }
   }
 
   const parseTimeOfPost = (timeOfPost) => {
@@ -55,25 +61,23 @@ function App() {
   const sortedPostes = [...postes].sort((a, b) => parseTimeOfPost(b.timeOfPost) - parseTimeOfPost(a.timeOfPost));
 
   return (
-    <>
-      <div>
+    <main>
+      <section className={style.post}>
         <input type="text" name="postTittle" placeholder="Tittle" value={post.postTittle} onChange={postHandle}/>
-        <textarea name="postText" rows="4" cols="50" value={post.postText} onChange={postHandle}></textarea>
+        <textarea name="postText" rows="4" cols="50" placeholder="Write post text here..." value={post.postText} onChange={postHandle}></textarea>
         <button onClick={sendPostHandle}>Post</button>
-      </div>
+      </section>
 
-      <div>
+      <section className={style.displayPosts}>
         {sortedPostes.map((post, index) =>
           <div key={index}>
             <h1>{post.postTittle}</h1>
             <p>{post.postText}</p>
-            <div>
-              <span>{post.timeOfPost}</span>
-            </div>
+            <span>{post.timeOfPost}</span>
           </div>
         )}
-      </div>
-    </>
+      </section>
+    </main>
   )
 }
 

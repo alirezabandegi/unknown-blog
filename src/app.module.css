@@ -1,0 +1,50 @@
+main{
+    color: #e8e6e3;
+    width: 100%;
+    @media only screen and (min-width:767px){
+        width: 768px;
+    }
+
+    .post{
+        display: flex;
+        flex-flow: column;
+        margin-top: 10px;
+
+        input, textarea{
+            padding: 5px;
+            color: #898989;
+            background-color: #252525;
+            outline: none;
+        }
+        input{
+            border: 1px solid #898989;
+            border-bottom: none;
+        }
+        button{
+            padding: 5px;
+            color: #ffffff;
+            background-color: rgb(9, 151, 9);
+            border-color: rgb(9, 151, 9);
+            cursor: pointer;
+        }
+    }
+
+    .displayPosts{
+        div{
+            border: 1px solid #898989;
+            margin: 20px 0 0 0;
+            padding: 5px;
+
+            p{
+                margin-top: 5px;
+            }
+            span{
+                display: block;
+                padding: 5px 0;
+                margin-top: 15px;
+                text-align: center;
+                border-top: 1px solid #898989;
+            }
+        }
+    }
+}
