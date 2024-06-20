@@ -103,7 +103,7 @@ function App() {
       <main>
         <section className={style.post}>
           <input type="text" name="postTittle" placeholder="Tittle" value={post.postTittle} onChange={postHandle}/>
-          <textarea name="postText" rows="4" cols="50" placeholder="Write post text here..." value={post.postText} onChange={postHandle}></textarea>
+          <textarea name="postText" rows="10" cols="50" placeholder="Write post text here..." value={post.postText} onChange={postHandle}></textarea>
           <button onClick={sendPostHandle}>Post</button>
         </section>
 
