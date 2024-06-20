@@ -1,6 +1,6 @@
 # Unknown Blog
 
-This is a simple blog application built with React, allowing users to post and view blog posts in real-time. The project also includes a user agreement and disclaimer for responsible use.
+This is a simple blog application built with React and using google firebase, allowing users to post and view blog posts in real-time. The project also includes a user agreement and disclaimer for responsible use.
 
 ## Table of Contents
 
